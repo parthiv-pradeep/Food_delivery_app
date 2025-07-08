@@ -13,13 +13,6 @@ const CartPage = () => {
     navigate(-1); // Go back to previous page
   };
 
-  const handleCheckout = () => {
-    // In a real app, this would integrate with payment processing
-    alert('Checkout functionality would be implemented here!');
-    clearCart();
-    navigate('/orders');
-  };
-
   const getGroupedItems = () => {
     const grouped = {};
     cartItems.forEach(item => {
@@ -191,7 +184,7 @@ const CartPage = () => {
               </div>
 
               <button
-                onClick={handleCheckout}
+                onClick={() => navigate('/checkout')}
                 className="w-full bg-primary-500 hover:bg-primary-600 text-white py-3 rounded-lg font-semibold transition-colors"
               >
                 Proceed to Checkout

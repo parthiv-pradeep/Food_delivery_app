@@ -207,7 +207,7 @@ const RestaurantDetail = () => {
                     <span className="text-primary-600 dark:text-primary-400">${getTotalPrice().toFixed(2)}</span>
                   </div>
                   <button 
-                    onClick={() => navigate('/cart')}
+                    onClick={() => navigate('/checkout')}
                     className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2.5 sm:py-3 rounded-xl font-semibold mt-3 sm:mt-4 transition-colors text-sm sm:text-base"
                   >
                     Proceed to Checkout

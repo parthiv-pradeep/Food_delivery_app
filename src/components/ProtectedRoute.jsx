@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import LoginModal from './LoginModal';
-import { ShoppingCart, User, Lock } from 'lucide-react';
+import { ShoppingCart, User, Lock, CreditCard } from 'lucide-react';
 
 const ProtectedRoute = ({ children, type = 'general' }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -22,6 +22,8 @@ const ProtectedRoute = ({ children, type = 'general' }) => {
           return <ShoppingCart className="h-12 w-12 text-primary-500" />;
         case 'orders':
           return <User className="h-12 w-12 text-primary-500" />;
+        case 'checkout':
+          return <CreditCard className="h-12 w-12 text-primary-500" />;
         default:
           return <Lock className="h-12 w-12 text-primary-500" />;
       }
@@ -33,6 +35,8 @@ const ProtectedRoute = ({ children, type = 'general' }) => {
           return 'Sign in to view your cart';
         case 'orders':
           return 'Sign in to view your orders';
+        case 'checkout':
+          return 'Sign in to checkout';
         default:
           return 'Sign in required';
       }
@@ -44,6 +48,8 @@ const ProtectedRoute = ({ children, type = 'general' }) => {
           return 'Please sign in to add items to your cart and place orders.';
         case 'orders':
           return 'Please sign in to view your order history and track deliveries.';
+        case 'checkout':
+          return 'Please sign in to proceed with checkout and place your order.';
         default:
           return 'Please sign in to access this feature.';
       }

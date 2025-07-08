@@ -11,6 +11,7 @@ import RestaurantDetail from './pages/RestaurantDetail';
 import CategoryRestaurants from './pages/CategoryRestaurants';
 import MyOrders from './pages/MyOrders';
 import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -30,6 +31,14 @@ function App() {
                     element={
                       <ProtectedRoute type="cart">
                         <CartPage />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route 
+                    path="/checkout" 
+                    element={
+                      <ProtectedRoute type="checkout">
+                        <CheckoutPage />
                       </ProtectedRoute>
                     } 
                   />
