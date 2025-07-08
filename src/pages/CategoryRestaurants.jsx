@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Star, Clock, Truck, Heart, ArrowLeft, Filter } from 'lucide-react';
+import { localRestaurants } from '../data/localRestaurants';
+import { localCategories } from '../data/localCategories';
 
 const CategoryRestaurants = () => {
   const { category } = useParams();
@@ -8,169 +10,61 @@ const CategoryRestaurants = () => {
   const [favorites, setFavorites] = useState(new Set());
   const [sortBy, setSortBy] = useState('rating');
 
-  // Mock data - restaurants filtered by category
-  const categoryData = {
-    pizza: {
-      name: "Pizza",
-      emoji: "🍕",
-      restaurants: [
-        {
-          id: 1,
-          name: "Tony's Pizza Palace",
-          image: "🍕",
-          rating: 4.8,
-          deliveryTime: "25-35 min",
-          deliveryFee: "Free",
-          cuisine: "Italian, Pizza",
-          offer: "50% OFF up to $10",
-          promoted: true,
-          specialItems: ["Margherita Pizza", "Pepperoni Pizza", "Supreme Pizza"]
-        },
-        {
-          id: 13,
-          name: "Mama Mia Pizzeria",
-          image: "🍕",
-          rating: 4.7,
-          deliveryTime: "30-40 min",
-          deliveryFee: "$1.99",
-          cuisine: "Italian, Pizza",
-          offer: "Buy 2 Get 1 Free",
-          promoted: false,
-          specialItems: ["Quattro Stagioni", "Diavola Pizza", "Vegetarian Pizza"]
-        },
-        {
-          id: 14,
-          name: "New York Style Pizza",
-          image: "🍕",
-          rating: 4.6,
-          deliveryTime: "20-30 min",
-          deliveryFee: "Free",
-          cuisine: "American, Pizza",
-          offer: "30% OFF",
-          promoted: false,
-          specialItems: ["NY Style Cheese", "Pepperoni Slice", "Meat Lovers"]
-        }
-      ]
-    },
-    burgers: {
-      name: "Burgers",
-      emoji: "🍔",
-      restaurants: [
-        {
-          id: 2,
-          name: "Burger Kingdom",
-          image: "🍔",
-          rating: 4.6,
-          deliveryTime: "20-30 min",
-          deliveryFee: "$2.99",
-          cuisine: "American, Burgers",
-          offer: "Buy 1 Get 1 Free",
-          promoted: false,
-          specialItems: ["Classic Burger", "Cheeseburger", "Bacon Burger"]
-        },
-        {
-          id: 15,
-          name: "Gourmet Burger Co.",
-          image: "🍔",
-          rating: 4.9,
-          deliveryTime: "25-35 min",
-          deliveryFee: "Free",
-          cuisine: "Gourmet, Burgers",
-          offer: "40% OFF",
-          promoted: true,
-          specialItems: ["Truffle Burger", "Wagyu Burger", "Veggie Burger"]
-        }
-      ]
-    },
-    sushi: {
-      name: "Sushi",
-      emoji: "🍣",
-      restaurants: [
-        {
-          id: 3,
-          name: "Sakura Sushi",
-          image: "🍣",
-          rating: 4.9,
-          deliveryTime: "30-40 min",
-          deliveryFee: "Free",
-          cuisine: "Japanese, Sushi",
-          offer: "20% OFF",
-          promoted: true,
-          specialItems: ["Salmon Roll", "Tuna Sashimi", "California Roll"]
-        },
-        {
-          id: 16,
-          name: "Tokyo Sushi Bar",
-          image: "🍣",
-          rating: 4.8,
-          deliveryTime: "35-45 min",
-          deliveryFee: "$3.99",
-          cuisine: "Japanese, Sushi",
-          offer: "Free Miso Soup",
-          promoted: false,
-          specialItems: ["Dragon Roll", "Rainbow Roll", "Chirashi Bowl"]
-        }
-      ]
-    },
-    mexican: {
-      name: "Mexican",
-      emoji: "🌮",
-      restaurants: [
-        {
-          id: 5,
-          name: "Taco Fiesta",
-          image: "🌮",
-          rating: 4.5,
-          deliveryTime: "15-25 min",
-          deliveryFee: "Free",
-          cuisine: "Mexican, Tacos",
-          offer: "30% OFF",
-          promoted: false,
-          specialItems: ["Fish Tacos", "Beef Burritos", "Quesadillas"]
-        }
-      ]
-    },
-    indian: {
-      name: "Indian",
-      emoji: "🍛",
-      restaurants: [
-        {
-          id: 4,
-          name: "Spice Route",
-          image: "🍛",
-          rating: 4.7,
-          deliveryTime: "35-45 min",
-          deliveryFee: "$1.99",
-          cuisine: "Indian, Curry",
-          offer: "Free Delivery",
-          promoted: false,
-          specialItems: ["Butter Chicken", "Biryani", "Tikka Masala"]
-        }
-      ]
-    },
-    chinese: {
-      name: "Chinese",
-      emoji: "🥡",
-      restaurants: [
-        {
-          id: 6,
-          name: "Golden Dragon",
-          image: "🥡",
-          rating: 4.4,
-          deliveryTime: "25-35 min",
-          deliveryFee: "$2.49",
-          cuisine: "Chinese, Noodles",
-          offer: "Free Spring Rolls",
-          promoted: false,
-          specialItems: ["Kung Pao Chicken", "Lo Mein", "Fried Rice"]
-        }
-      ]
-    }
+  // Scroll to top when component mounts or category changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [category]);
+
+  // Get category information
+  const categoryInfo = localCategories.find(cat => cat.id === category);
+  
+  // Filter restaurants based on category
+  const getRestaurantsForCategory = () => {
+    return localRestaurants.filter(restaurant => {
+      // Match by cuisine type or menu categories
+      const cuisineMatch = restaurant.cuisine.toLowerCase().includes(category.replace('-', ' '));
+      const menuCategoryMatch = restaurant.menu.some(item => 
+        item.category.toLowerCase().includes(category.replace('-', ' '))
+      );
+      
+      // Specific category mappings
+      switch(category) {
+        case 'kerala-traditional':
+          return restaurant.cuisine.includes('Kerala') || restaurant.cuisine.includes('Traditional');
+        case 'biryani':
+          return restaurant.cuisine.includes('Biryani') || restaurant.menu.some(item => 
+            item.name.toLowerCase().includes('biryani')
+          );
+        case 'seafood':
+          return restaurant.cuisine.includes('Seafood');
+        case 'breakfast':
+          return restaurant.menu.some(item => item.category === 'Breakfast');
+        case 'street-food':
+          return restaurant.cuisine.includes('Street Food');
+        case 'beverages':
+          return restaurant.cuisine.includes('Beverages') || restaurant.cuisine.includes('Juices');
+        case 'desserts':
+          return restaurant.cuisine.includes('Desserts') || restaurant.cuisine.includes('Ice Cream');
+        case 'vegetarian':
+          return restaurant.cuisine.includes('Vegetarian');
+        case 'fast-food':
+          return restaurant.cuisine.includes('Fast Food');
+        case 'arabic':
+          return restaurant.cuisine.includes('Arabic');
+        case 'bakery':
+          return restaurant.cuisine.includes('Bakery');
+        case 'snacks':
+          return restaurant.menu.some(item => item.category === 'Snacks');
+        default:
+          return cuisineMatch || menuCategoryMatch;
+      }
+    });
   };
 
-  const categoryInfo = categoryData[category] || categoryData.pizza;
-  
-  const sortedRestaurants = [...categoryInfo.restaurants].sort((a, b) => {
+  const filteredRestaurants = getRestaurantsForCategory();
+
+  // Sort restaurants
+  const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
     switch (sortBy) {
       case 'rating':
         return b.rating - a.rating;
@@ -208,9 +102,11 @@ const CategoryRestaurants = () => {
                 <span>Back</span>
               </button>
               <div className="flex items-center space-x-3">
-                <span className="text-4xl">{categoryInfo.emoji}</span>
+                <span className="text-4xl">{categoryInfo?.emoji || '🍽️'}</span>
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{categoryInfo.name}</h1>
+                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    {categoryInfo?.name || category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  </h1>
                   <p className="text-gray-600 dark:text-gray-300">{sortedRestaurants.length} restaurants available</p>
                 </div>
               </div>
@@ -245,15 +141,17 @@ const CategoryRestaurants = () => {
               className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden"
             >
               {/* Restaurant Image */}
-              <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-6xl">{restaurant.image}</span>
-                </div>
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={restaurant.image} 
+                  alt={restaurant.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
                 
-                {/* Promoted Badge */}
-                {restaurant.promoted && (
-                  <div className="absolute top-3 left-3 bg-primary-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    Promoted
+                {/* Open Badge */}
+                {restaurant.isOpen && (
+                  <div className="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    Open
                   </div>
                 )}
                 
@@ -274,10 +172,12 @@ const CategoryRestaurants = () => {
                   />
                 </button>
 
-                {/* Offer Badge */}
-                <div className="absolute bottom-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                  {restaurant.offer}
-                </div>
+                {/* Free Delivery Badge */}
+                {restaurant.deliveryFee === "Free" && (
+                  <div className="absolute bottom-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    Free Delivery
+                  </div>
+                )}
               </div>
 
               {/* Restaurant Info */}
@@ -290,11 +190,11 @@ const CategoryRestaurants = () => {
                   {restaurant.cuisine}
                 </p>
 
-                {/* Special Items */}
+                {/* Popular Items */}
                 <div className="mb-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Popular items:</p>
                   <p className="text-sm text-gray-700 dark:text-gray-300">
-                    {restaurant.specialItems.join(', ')}
+                    {restaurant.menu.slice(0, 3).map(item => item.name).join(', ')}
                   </p>
                 </div>
 

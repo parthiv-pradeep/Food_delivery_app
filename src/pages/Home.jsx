@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import Categories from '../components/Categories';
 import RestaurantList from '../components/RestaurantList';
+import MeppayurHighlights from '../components/MeppayurHighlights';
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Hero />
       {/* Mobile-optimized spacing and layout */}
       <div className="space-y-6 sm:space-y-12 pb-8 sm:pb-16">
+        <MeppayurHighlights />
         <Categories />
         <RestaurantList />
       </div>
