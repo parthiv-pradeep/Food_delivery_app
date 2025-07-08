@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, User, ShoppingCart, Menu, X, Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import LocationModal from './LocationModal';
@@ -14,6 +14,7 @@ import ScrollArea from './ui/ScrollArea';
 const Header = () => {
   const { getTotalItems } = useCart();
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
@@ -31,7 +32,7 @@ const Header = () => {
       setIsLoginModalOpen(true);
       return;
     }
-    setIsCartOpen(true);
+    navigate('/cart');
   };
 
   return (

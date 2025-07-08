@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Star, Clock, Truck, ArrowLeft, Plus, Minus, ShoppingCart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -14,6 +14,11 @@ const RestaurantDetail = () => {
   const { isAuthenticated } = useAuth();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   // Mock restaurant data - in real app, this would come from API
   const restaurantData = {
@@ -202,7 +207,7 @@ const RestaurantDetail = () => {
                     <span className="text-primary-600 dark:text-primary-400">${getTotalPrice().toFixed(2)}</span>
                   </div>
                   <button 
-                    onClick={() => setIsCartOpen(true)}
+                    onClick={() => navigate('/cart')}
                     className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2.5 sm:py-3 rounded-xl font-semibold mt-3 sm:mt-4 transition-colors text-sm sm:text-base"
                   >
                     Proceed to Checkout
@@ -279,7 +284,7 @@ const RestaurantDetail = () => {
       {isAuthenticated && getCartItems().length > 0 && (
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6">
           <button 
-            onClick={() => setIsCartOpen(true)}
+            onClick={() => navigate('/cart')}
             className="bg-primary-500 hover:bg-primary-600 text-white p-3 sm:p-4 rounded-full shadow-lg transition-colors flex items-center space-x-1 sm:space-x-2"
           >
             <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />

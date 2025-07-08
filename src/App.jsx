@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import RestaurantDetail from './pages/RestaurantDetail';
 import CategoryRestaurants from './pages/CategoryRestaurants';
 import MyOrders from './pages/MyOrders';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
@@ -24,6 +25,14 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/restaurant/:id" element={<RestaurantDetail />} />
                   <Route path="/category/:category" element={<CategoryRestaurants />} />
+                  <Route 
+                    path="/cart" 
+                    element={
+                      <ProtectedRoute type="cart">
+                        <CartPage />
+                      </ProtectedRoute>
+                    } 
+                  />
                   <Route 
                     path="/orders" 
                     element={

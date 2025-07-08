@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Star, Clock, Truck, Heart } from 'lucide-react';
 import ScrollArea from './ui/ScrollArea';
 
 const RestaurantList = () => {
   const [favorites, setFavorites] = useState(new Set());
+  const navigate = useNavigate();
 
   const restaurants = [
     {
@@ -188,11 +189,15 @@ const RestaurantList = () => {
                 </div>
 
                 {/* Order Button */}
-                <Link to={`/restaurant/${restaurant.id}`}>
-                  <button className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-colors duration-200 text-sm sm:text-base">
-                    Order Now
-                  </button>
-                </Link>
+                <button 
+                  onClick={() => {
+                    // Clean navigation to restaurant page
+                    navigate(`/restaurant/${restaurant.id}`);
+                  }}
+                  className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-colors duration-200 text-sm sm:text-base"
+                >
+                  Order Now
+                </button>
               </div>
             </div>
           ))}
