@@ -51,16 +51,16 @@ const ProtectedRoute = ({ children, type = 'general' }) => {
 
     return (
       <>
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
           <div className="max-w-md w-full text-center">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+            <div className="bg-white rounded-2xl shadow-lg p-8">
               <div className="flex justify-center mb-6">
                 {getIcon()}
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 {getTitle()}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-8">
+              <p className="text-gray-600 mb-8">
                 {getDescription()}
               </p>
               <button

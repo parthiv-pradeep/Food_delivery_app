@@ -14,7 +14,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 dark:from-primary-600 dark:via-primary-700 dark:to-primary-800 overflow-hidden min-h-screen sm:min-h-[80vh] animate-gradient">
+    <section className="relative bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 overflow-hidden min-h-screen sm:min-h-[80vh] animate-gradient">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 bg-black opacity-10"></div>
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
