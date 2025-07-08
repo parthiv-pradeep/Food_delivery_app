@@ -1,3 +1,6 @@
+/* Import Leaflet CSS for real maps */
+@import 'leaflet/dist/leaflet.css';
+
 /* Custom CSS for additional styling */
 body {
   font-family: 'Inter', ui-sans-serif, system-ui;
