@@ -1,18 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ScrollArea from './ui/ScrollArea';
+import { localCategories } from '../data/localCategories';
 
 const Categories = () => {
-  const categories = [
-    { id: 1, name: 'Pizza', emoji: '🍕', color: 'bg-red-100 dark:bg-red-900', slug: 'pizza' },
-    { id: 2, name: 'Burgers', emoji: '🍔', color: 'bg-yellow-100 dark:bg-yellow-900', slug: 'burgers' },
-    { id: 3, name: 'Sushi', emoji: '🍣', color: 'bg-green-100 dark:bg-green-900', slug: 'sushi' },
-    { id: 4, name: 'Mexican', emoji: '🌮', color: 'bg-orange-100 dark:bg-orange-900', slug: 'mexican' },
-    { id: 5, name: 'Indian', emoji: '🍛', color: 'bg-purple-100 dark:bg-purple-900', slug: 'indian' },
-    { id: 6, name: 'Chinese', emoji: '🥡', color: 'bg-blue-100 dark:bg-blue-900', slug: 'chinese' },
-    { id: 7, name: 'Italian', emoji: '🍝', color: 'bg-pink-100 dark:bg-pink-900', slug: 'italian' },
-    { id: 8, name: 'Desserts', emoji: '🍰', color: 'bg-indigo-100 dark:bg-indigo-900', slug: 'desserts' },
-  ];
+  const categories = localCategories;
 
   return (
     <section className="py-6 sm:py-12 bg-white dark:bg-gray-900">
@@ -32,7 +24,7 @@ const Categories = () => {
             {categories.map((category) => (
               <Link
                 key={category.id}
-                to={`/category/${category.slug}`}
+                to={`/category/${category.id}`}
                 className={`${category.color} p-3 sm:p-6 rounded-xl sm:rounded-2xl hover:scale-105 transition-all duration-200 group hover:shadow-lg flex-shrink-0 w-20 sm:w-32 lg:w-auto`}
               >
               <div className="text-center">

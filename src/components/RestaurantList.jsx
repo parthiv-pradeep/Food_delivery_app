@@ -2,79 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star, Clock, Truck, Heart } from 'lucide-react';
 import ScrollArea from './ui/ScrollArea';
+import { localRestaurants } from '../data/localRestaurants';
+import { formatCurrency } from '../utils/currency';
 
 const RestaurantList = () => {
   const [favorites, setFavorites] = useState(new Set());
   const navigate = useNavigate();
 
-  const restaurants = [
-    {
-      id: 1,
-      name: "Tony's Pizza Palace",
-      image: "🍕",
-      rating: 4.8,
-      deliveryTime: "25-35 min",
-      deliveryFee: "Free",
-      cuisine: "Italian, Pizza",
-      offer: "50% OFF up to $10",
-      promoted: true,
-    },
-    {
-      id: 2,
-      name: "Burger Kingdom",
-      image: "🍔",
-      rating: 4.6,
-      deliveryTime: "20-30 min",
-      deliveryFee: "$2.99",
-      cuisine: "American, Burgers",
-      offer: "Buy 1 Get 1 Free",
-      promoted: false,
-    },
-    {
-      id: 3,
-      name: "Sakura Sushi",
-      image: "🍣",
-      rating: 4.9,
-      deliveryTime: "30-40 min",
-      deliveryFee: "Free",
-      cuisine: "Japanese, Sushi",
-      offer: "20% OFF",
-      promoted: true,
-    },
-    {
-      id: 4,
-      name: "Spice Route",
-      image: "🍛",
-      rating: 4.7,
-      deliveryTime: "35-45 min",
-      deliveryFee: "$1.99",
-      cuisine: "Indian, Curry",
-      offer: "Free Delivery",
-      promoted: false,
-    },
-    {
-      id: 5,
-      name: "Taco Fiesta",
-      image: "🌮",
-      rating: 4.5,
-      deliveryTime: "15-25 min",
-      deliveryFee: "Free",
-      cuisine: "Mexican, Tacos",
-      offer: "30% OFF",
-      promoted: false,
-    },
-    {
-      id: 6,
-      name: "Golden Dragon",
-      image: "🥡",
-      rating: 4.4,
-      deliveryTime: "25-35 min",
-      deliveryFee: "$2.49",
-      cuisine: "Chinese, Noodles",
-      offer: "Free Spring Rolls",
-      promoted: false,
-    },
-  ];
+  const restaurants = localRestaurants;
 
   const toggleFavorite = (restaurantId) => {
     const newFavorites = new Set(favorites);
@@ -122,15 +57,17 @@ const RestaurantList = () => {
               className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden"
             >
               {/* Restaurant Image */}
-              <div className="relative h-32 sm:h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-4xl sm:text-6xl">{restaurant.image}</span>
-                </div>
+              <div className="relative h-32 sm:h-48 overflow-hidden">
+                <img 
+                  src={restaurant.image} 
+                  alt={restaurant.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
                 
                 {/* Promoted Badge */}
-                {restaurant.promoted && (
-                  <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-primary-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold">
-                    Promoted
+                {restaurant.isOpen && (
+                  <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-green-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold">
+                    Open
                   </div>
                 )}
                 
@@ -149,9 +86,11 @@ const RestaurantList = () => {
                 </button>
 
                 {/* Offer Badge */}
-                <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 bg-green-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold">
-                  {restaurant.offer}
-                </div>
+                {restaurant.deliveryFee === "Free" && (
+                  <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 bg-green-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold">
+                    Free Delivery
+                  </div>
+                )}
               </div>
 
               {/* Restaurant Info */}

@@ -19,7 +19,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState('Downtown, NYC');
+  const [currentLocation, setCurrentLocation] = useState('Meppayur, Kozhikode');
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const handleLocationUpdate = (address) => {
