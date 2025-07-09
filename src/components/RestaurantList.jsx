@@ -3,13 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Star, Clock, Truck, Heart } from 'lucide-react';
 import ScrollArea from './ui/ScrollArea';
 import { localRestaurants } from '../data/localRestaurants';
-import { formatCurrency } from '../utils/currency';
 
-const RestaurantList = () => {
+const RestaurantList = ({ showAllRestaurants = false }) => {
   const [favorites, setFavorites] = useState(new Set());
   const navigate = useNavigate();
 
-  const restaurants = localRestaurants;
+  // Show all restaurants or limit to 6 for home page
+  const restaurants = showAllRestaurants ? localRestaurants : localRestaurants.slice(0, 6);
 
   const toggleFavorite = (restaurantId) => {
     const newFavorites = new Set(favorites);
@@ -22,30 +22,16 @@ const RestaurantList = () => {
   };
 
   return (
-    <section id="restaurants" className="py-12 bg-gray-50 dark:bg-gray-800">
+    <section id="restaurants" className="py-12 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Restaurants near you
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300">
-              Discover amazing food from local restaurants
-            </p>
-          </div>
-          
-          {/* Filter Buttons */}
-          <div className="hidden md:flex space-x-4">
-            <button className="px-4 py-2 bg-primary-500 text-white rounded-lg font-medium">
-              All
-            </button>
-            <button className="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-600">
-              Fast Delivery
-            </button>
-            <button className="px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-600">
-              Top Rated
-            </button>
-          </div>
+        <div className="mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            Restaurants with online food delivery in Meppayur
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            Discover {restaurants.length} restaurants serving authentic Kerala cuisine
+          </p>
+
         </div>
 
         {/* Restaurant Grid */}
@@ -143,12 +129,17 @@ const RestaurantList = () => {
           </div>
         </ScrollArea>
 
-        {/* Load More Button */}
-        <div className="text-center mt-10">
-          <button className="bg-white dark:bg-gray-800 border-2 border-primary-500 text-primary-500 px-8 py-3 rounded-xl font-semibold hover:bg-primary-500 hover:text-white transition-colors duration-200">
-            View More Restaurants
-          </button>
-        </div>
+        {/* Load More Button - Only show on home page */}
+        {!showAllRestaurants && (
+          <div className="text-center mt-10">
+            <Link 
+              to="/restaurants"
+              className="inline-block bg-white dark:bg-gray-800 border-2 border-primary-500 text-primary-500 px-8 py-3 rounded-xl font-semibold hover:bg-primary-500 hover:text-white transition-colors duration-200"
+            >
+              View More Restaurants
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

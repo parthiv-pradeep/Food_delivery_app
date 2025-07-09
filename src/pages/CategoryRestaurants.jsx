@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Star, Clock, Truck, Heart, ArrowLeft, Filter } from 'lucide-react';
+import { Star, Clock, Truck, Heart, ArrowLeft } from 'lucide-react';
 import { localRestaurants } from '../data/localRestaurants';
 import { localCategories } from '../data/localCategories';
 
@@ -8,7 +8,6 @@ const CategoryRestaurants = () => {
   const { category } = useParams();
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState(new Set());
-  const [sortBy, setSortBy] = useState('rating');
 
   // Scroll to top when component mounts or category changes
   useEffect(() => {
@@ -63,20 +62,6 @@ const CategoryRestaurants = () => {
 
   const filteredRestaurants = getRestaurantsForCategory();
 
-  // Sort restaurants
-  const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
-    switch (sortBy) {
-      case 'rating':
-        return b.rating - a.rating;
-      case 'deliveryTime':
-        return parseInt(a.deliveryTime) - parseInt(b.deliveryTime);
-      case 'name':
-        return a.name.localeCompare(b.name);
-      default:
-        return 0;
-    }
-  });
-
   const toggleFavorite = (restaurantId) => {
     const newFavorites = new Set(favorites);
     if (newFavorites.has(restaurantId)) {
@@ -107,24 +92,8 @@ const CategoryRestaurants = () => {
                   <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                     {categoryInfo?.name || category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   </h1>
-                  <p className="text-gray-600 dark:text-gray-300">{sortedRestaurants.length} restaurants available</p>
+                  <p className="text-gray-600 dark:text-gray-300">{filteredRestaurants.length} restaurants available</p>
                 </div>
-              </div>
-            </div>
-            
-            {/* Sort Options */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Filter className="h-5 w-5 text-gray-500" />
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  <option value="rating">Sort by Rating</option>
-                  <option value="deliveryTime">Sort by Delivery Time</option>
-                  <option value="name">Sort by Name</option>
-                </select>
               </div>
             </div>
           </div>
@@ -134,7 +103,7 @@ const CategoryRestaurants = () => {
       {/* Restaurants Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedRestaurants.map((restaurant) => (
+          {filteredRestaurants.map((restaurant) => (
             <Link
               key={restaurant.id}
               to={`/restaurant/${restaurant.id}`}
@@ -229,7 +198,7 @@ const CategoryRestaurants = () => {
         </div>
 
         {/* Empty State */}
-        {sortedRestaurants.length === 0 && (
+        {filteredRestaurants.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🍽️</div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No restaurants found</h3>

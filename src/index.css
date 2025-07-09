@@ -5,6 +5,7 @@
 body {
   font-family: 'Inter', ui-sans-serif, system-ui;
   font-feature-settings: "rlig" 1, "calt" 1;
+  overflow-x: hidden;
 }
 
 html {
@@ -260,4 +261,99 @@ html {
   background-color: #1e293b;
   border-color: #475569;
   color: #f1f5f9;
+}
+
+/* Floating Animation Styles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+}
+
+/* Location Selector Enhancements */
+.location-dropdown {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Search Enhancement */
+.search-suggestions {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  .animate-float, .animate-float-delayed {
+    animation-duration: 4s;
+  }
+}
+
+/* Text wrapping utilities for category cards */
+.category-text {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.2;
+}
+
+/* Better text handling for small containers */
+.text-wrap-balance {
+  text-wrap: balance;
+}
+
+@supports (text-wrap: balance) {
+  .category-text {
+    text-wrap: balance;
+  }
+}
+
+/* Additional mobile optimizations for text */
+@media (max-width: 640px) {
+  .category-text {
+    font-size: clamp(8px, 2.5vw, 10px);
+    line-height: 1.1;
+  }
+}
+
+/* Prevent horizontal scrollbar on categories */
+.categories-container {
+  overflow-x: hidden;
+}
+
+.categories-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.categories-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure proper category grid layout */
+@media (min-width: 640px) {
+  .categories-grid {
+    overflow-x: visible !important;
+  }
 }

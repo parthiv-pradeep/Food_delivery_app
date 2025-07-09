@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, Users, Award, Truck, Heart } from 'lucide-react';
 
 const MeppayurHighlights = () => {
+  const navigate = useNavigate();
+
   const highlights = [
     {
       icon: <MapPin className="h-6 w-6" />,
@@ -34,21 +37,28 @@ const MeppayurHighlights = () => {
       name: "Kozhikode Biryani",
       image: "🍚",
       description: "Authentic Malabar style",
-      badge: "Most Popular"
+      badge: "Most Popular",
+      restaurantId: 2 // Kozhikode Biriyani House
     },
     {
       name: "Kerala Fish Curry",
       image: "🐟",
       description: "Fresh from Malabar coast",
-      badge: "Chef's Special"
+      badge: "Chef's Special",
+      restaurantId: 1 // Malabar Spice Kitchen
     },
     {
       name: "Puttu & Kadala",
       image: "🥥",
       description: "Traditional breakfast",
-      badge: "Local Favorite"
+      badge: "Local Favorite",
+      restaurantId: 4 // Meppayur Coffee House
     }
   ];
+
+  const handleOrderNow = (restaurantId) => {
+    navigate(`/restaurant/${restaurantId}`);
+  };
 
   return (
     <section className="py-12 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-800 dark:to-gray-900">
@@ -101,11 +111,11 @@ const MeppayurHighlights = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {localSpecials.map((special, index) => (
               <div
                 key={index}
-                className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 group"
+                className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300 group"
               >
                 {/* Badge */}
                 <div className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
@@ -122,7 +132,10 @@ const MeppayurHighlights = () => {
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                     {special.description}
                   </p>
-                  <button className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-green-600 hover:to-emerald-700 transition-colors duration-200">
+                  <button 
+                    onClick={() => handleOrderNow(special.restaurantId)}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-green-600 hover:to-emerald-700 transition-colors duration-200"
+                  >
                     Order Now
                   </button>
                 </div>
@@ -140,20 +153,26 @@ const MeppayurHighlights = () => {
                 We partner with authentic Kerala restaurants and local vendors in Meppayur
               </p>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold">12+</div>
-                <div className="text-xs text-green-100">Local Partners</div>
+              <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold">12+</div>
+                  <div className="text-xs text-green-100">Local Partners</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">₹25</div>
+                  <div className="text-xs text-green-100">Min Delivery</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold">4.7★</div>
+                  <div className="text-xs text-green-100">Avg Rating</div>
+                </div>
+                <button 
+                  onClick={() => navigate('/restaurants')}
+                  className="bg-white text-green-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 text-sm"
+                >
+                  View All Restaurants
+                </button>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">₹25</div>
-                <div className="text-xs text-green-100">Min Delivery</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">4.7★</div>
-                <div className="text-xs text-green-100">Avg Rating</div>
-              </div>
-            </div>
           </div>
         </div>
 

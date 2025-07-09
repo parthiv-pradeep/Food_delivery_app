@@ -161,41 +161,41 @@ const Hero = () => {
           {/* Mobile-Optimized Hero Image with Automatic Carousel */}
           <div className="relative order-1 lg:order-2 mb-4 lg:mb-0">
             {/* Main Hero Image Container - Mobile Responsive with glassmorphism */}
-            <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-2 sm:p-4 overflow-hidden mx-2 sm:mx-0 mobile-glass mobile-card-hover">
+            <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-8 overflow-hidden mx-4 sm:mx-0 mobile-glass mobile-card-hover">
               {/* Background Pattern with animation */}
               <div className={`absolute inset-0 bg-gradient-to-br ${currentFood.color} rounded-2xl sm:rounded-3xl transition-all duration-1000 ease-in-out`}></div>
               
               {/* Main Food Image - Mobile Optimized with enhanced animations */}
-              <div className={`relative aspect-[4/3] lg:aspect-square bg-gradient-to-br ${currentFood.color} rounded-xl sm:rounded-2xl flex items-center justify-center overflow-hidden transition-all duration-1000 ease-in-out`}>
-                <div className="text-center transform hover:scale-105 transition-transform duration-300 w-full h-full flex flex-col items-center justify-center">
+              <div className={`relative aspect-square bg-gradient-to-br ${currentFood.color} rounded-xl sm:rounded-2xl flex items-center justify-center overflow-hidden transition-all duration-1000 ease-in-out`}>
+                <div className="text-center transform hover:scale-105 transition-transform duration-300">
                   {/* Large Attractive Food Image - Responsive with enhanced animations */}
-                  <div className="text-5xl sm:text-7xl lg:text-8xl mb-1 sm:mb-2 animate-pulse-slow transition-all duration-1000 ease-in-out transform">
+                  <div className="text-6xl sm:text-8xl md:text-9xl mb-2 sm:mb-4 animate-pulse-slow transition-all duration-1000 ease-in-out transform">
                     {currentFood.emoji}
                   </div>
                   
                   {/* Surrounding food items that change with main food */}
-                  <div className="absolute top-1 sm:top-2 left-1 sm:left-2 text-xl sm:text-2xl lg:text-3xl animate-bounce food-bounce-1 transition-all duration-500">
+                  <div className="absolute top-2 sm:top-4 left-2 sm:left-4 text-2xl sm:text-4xl animate-bounce food-bounce-1 transition-all duration-500">
                     {keralaFoods[(currentFoodIndex + 1) % keralaFoods.length].emoji}
                   </div>
-                  <div className="absolute top-1 sm:top-2 right-1 sm:right-2 text-xl sm:text-2xl lg:text-3xl animate-bounce food-bounce-2 transition-all duration-500">
+                  <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-2xl sm:text-4xl animate-bounce food-bounce-2 transition-all duration-500">
                     {keralaFoods[(currentFoodIndex + 2) % keralaFoods.length].emoji}
                   </div>
-                  <div className="absolute bottom-1 sm:bottom-2 left-1 sm:left-2 text-xl sm:text-2xl lg:text-3xl animate-bounce food-bounce-3 transition-all duration-500">
+                  <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 text-2xl sm:text-4xl animate-bounce food-bounce-3 transition-all duration-500">
                     {keralaFoods[(currentFoodIndex + 3) % keralaFoods.length].emoji}
                   </div>
-                  <div className="absolute bottom-1 sm:bottom-2 right-1 sm:right-2 text-xl sm:text-2xl lg:text-3xl animate-bounce food-bounce-4 transition-all duration-500">
+                  <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-2xl sm:text-4xl animate-bounce food-bounce-4 transition-all duration-500">
                     {keralaFoods[(currentFoodIndex + 4) % keralaFoods.length].emoji}
                   </div>
                   
-                  <div className="bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl p-1.5 sm:p-3 mx-1 sm:mx-2 mobile-glass transition-all duration-1000 ease-in-out">
-                    <p className="text-xs sm:text-base lg:text-lg font-bold text-gray-800 mb-0.5 transition-all duration-500">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-4 mx-2 sm:mx-4 mobile-glass transition-all duration-1000 ease-in-out">
+                    <p className="text-sm sm:text-lg font-bold text-gray-800 mb-1 transition-all duration-500">
                       {currentFood.name}
                     </p>
                     <p className="text-xs sm:text-sm text-gray-600 transition-all duration-500">
                       {currentFood.description}
                     </p>
-                    <div className="flex items-center justify-center mt-0.5 sm:mt-1">
-                      <div className="flex text-yellow-400 text-xs sm:text-sm">
+                    <div className="flex items-center justify-center mt-1 sm:mt-2">
+                      <div className="flex text-yellow-400 text-sm sm:text-base">
                         ⭐⭐⭐⭐⭐
                       </div>
                       <span className="ml-2 text-xs sm:text-sm font-semibold text-gray-700 transition-all duration-500">
@@ -206,35 +206,48 @@ const Hero = () => {
                 </div>
               </div>
               
-
+              {/* Carousel Indicators */}
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                {keralaFoods.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentFoodIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentFoodIndex 
+                        ? 'bg-white scale-125' 
+                        : 'bg-white/50 hover:bg-white/75'
+                    }`}
+                  />
+                ))}
+              </div>
               
               {/* Decorative Elements - Mobile Responsive with enhanced glow */}
-              <div className="absolute -top-0.5 sm:-top-1 left-1/2 transform -translate-x-1/2 bg-red-400 rounded-full p-1.5 sm:p-2 animate-bounce animate-pulse-glow">
-                <span className="text-sm sm:text-lg">🔥</span>
+              <div className="absolute -top-1 sm:-top-2 left-1/2 transform -translate-x-1/2 bg-red-400 rounded-full p-2 sm:p-3 animate-bounce animate-pulse-glow">
+                <span className="text-lg sm:text-2xl">🔥</span>
               </div>
             </div>
             
             {/* Mobile-Optimized Floating Food Elements with enhanced animations */}
-            <div className="absolute -top-2 sm:-top-4 -right-2 sm:-right-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-2 sm:p-4 animate-bounce shadow-2xl mobile-food-float">
-              <span className="text-lg sm:text-2xl">🥥</span>
+            <div className="absolute -top-3 sm:-top-6 -right-3 sm:-right-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-3 sm:p-6 animate-bounce shadow-2xl mobile-food-float">
+              <span className="text-xl sm:text-3xl">🥥</span>
             </div>
-            <div className="absolute -bottom-2 sm:-bottom-4 -left-2 sm:-left-4 bg-gradient-to-br from-green-400 to-blue-500 rounded-full p-2 sm:p-4 animate-pulse shadow-2xl mobile-food-float">
-              <span className="text-lg sm:text-2xl">🐟</span>
+            <div className="absolute -bottom-3 sm:-bottom-6 -left-3 sm:-left-6 bg-gradient-to-br from-green-400 to-blue-500 rounded-full p-3 sm:p-6 animate-pulse shadow-2xl mobile-food-float">
+              <span className="text-xl sm:text-3xl">🐟</span>
             </div>
-            <div className="absolute top-1/2 -right-3 sm:-right-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full p-1.5 sm:p-3 animate-bounce shadow-xl food-bounce-1 mobile-food-float">
-              <span className="text-sm sm:text-xl">🍮</span>
+            <div className="absolute top-1/2 -right-4 sm:-right-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full p-2 sm:p-4 animate-bounce shadow-xl food-bounce-1 mobile-food-float">
+              <span className="text-lg sm:text-2xl">🍮</span>
             </div>
-            <div className="absolute bottom-1/4 -left-3 sm:-left-6 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full p-1.5 sm:p-3 animate-pulse shadow-xl food-bounce-2 mobile-food-float">
-              <span className="text-sm sm:text-xl">☕</span>
+            <div className="absolute bottom-1/4 -left-4 sm:-left-8 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full p-2 sm:p-4 animate-pulse shadow-xl food-bounce-2 mobile-food-float">
+              <span className="text-lg sm:text-2xl">☕</span>
             </div>
             
             {/* Mobile-Friendly Delivery Truck Animation with enhanced movement */}
-            <div className="absolute -bottom-1 sm:-bottom-2 left-1/4 bg-blue-500 rounded-lg p-1.5 sm:p-2 animate-bounce shadow-lg mobile-food-float">
-              <span className="text-sm sm:text-lg">🚚</span>
+            <div className="absolute -bottom-2 sm:-bottom-4 left-1/4 bg-blue-500 rounded-lg p-2 sm:p-3 animate-bounce shadow-lg mobile-food-float">
+              <span className="text-base sm:text-xl">🚚</span>
             </div>
             
             {/* Mobile-Optimized Special Offers Badge with shimmer effect */}
-            <div className="absolute top-2 sm:top-4 left-0 bg-red-500 text-white px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-r-full font-bold text-xs sm:text-sm transform -rotate-3 shadow-lg animate-pulse-glow">
+            <div className="absolute top-4 sm:top-8 left-0 bg-red-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-r-full font-bold text-xs sm:text-sm transform -rotate-3 shadow-lg animate-pulse-glow">
               🌶️ Kerala Special
             </div>
           </div>

@@ -6,10 +6,10 @@ const Footer = () => {
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 text-6xl">🍕</div>
-        <div className="absolute top-20 right-20 text-4xl">🍔</div>
-        <div className="absolute bottom-10 left-20 text-5xl">🌮</div>
-        <div className="absolute bottom-20 right-10 text-3xl">🍜</div>
+        <div className="absolute top-10 left-10 text-6xl">�</div>
+        <div className="absolute top-20 right-20 text-4xl">🐟</div>
+        <div className="absolute bottom-10 left-20 text-5xl">🥥</div>
+        <div className="absolute bottom-20 right-10 text-3xl">🫖</div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl opacity-5">🍽️</div>
       </div>
 
@@ -17,15 +17,15 @@ const Footer = () => {
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-            <div className="text-3xl font-bold text-primary-400 mb-1">50K+</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">500+</div>
             <div className="text-sm text-gray-300">Happy Customers</div>
           </div>
           <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-            <div className="text-3xl font-bold text-primary-400 mb-1">200+</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">12+</div>
             <div className="text-sm text-gray-300">Restaurant Partners</div>
           </div>
           <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-            <div className="text-3xl font-bold text-primary-400 mb-1">30min</div>
+            <div className="text-3xl font-bold text-primary-400 mb-1">25min</div>
             <div className="text-sm text-gray-300">Average Delivery</div>
           </div>
           <div className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
@@ -44,15 +44,14 @@ const Footer = () => {
               <div className="text-2xl">🍽️</div>
             </div>
             <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
-              Your favorite food delivery app. Fast, fresh, and delicious meals delivered right to your doorstep. 
-              Experience the convenience of ordering from the best restaurants in your city with just a few taps!
+              Bringing authentic Kerala flavors to your doorstep in Meppayur, Kozhikode. Fresh, traditional, and delicious meals from local restaurants delivered with love and care!
             </p>
             
             {/* Features */}
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 text-primary-400" />
-                <span className="text-sm text-gray-300">30min delivery</span>
+                <span className="text-sm text-gray-300">25min delivery</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Star className="h-4 w-4 text-primary-400" />
