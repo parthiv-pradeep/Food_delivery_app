@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Star, Clock, Truck, Heart } from 'lucide-react';
-import ScrollArea from './ui/ScrollArea';
 import { localRestaurants } from '../data/localRestaurants';
 
 const RestaurantList = ({ showAllRestaurants = false }) => {
@@ -35,8 +34,7 @@ const RestaurantList = ({ showAllRestaurants = false }) => {
         </div>
 
         {/* Restaurant Grid */}
-        <ScrollArea className="h-[600px]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 pr-2 sm:pr-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {restaurants.map((restaurant) => (
             <div
               key={restaurant.id}
@@ -126,8 +124,7 @@ const RestaurantList = ({ showAllRestaurants = false }) => {
               </div>
             </div>
           ))}
-          </div>
-        </ScrollArea>
+        </div>
 
         {/* Load More Button - Only show on home page */}
         {!showAllRestaurants && (
