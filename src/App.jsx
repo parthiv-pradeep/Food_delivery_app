@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
-import SimpleHeader from './components/SimpleHeader';
-import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Restaurants from './pages/Restaurants';
@@ -15,6 +13,8 @@ import SearchResults from './pages/SearchResults';
 import MyOrders from './pages/MyOrders';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
+import LocationTest from './components/LocationTest';
+import ManageAddresses from './pages/ManageAddresses';
 
 function App() {
   return (
@@ -22,14 +22,15 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <Router>
-            <div className="min-h-screen bg-gray-50 transition-colors duration-300">
-              <SimpleHeader />
+            <div className="min-h-screen bg-white">
               <main>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/restaurants" element={<Restaurants />} />
                   <Route path="/categories" element={<CategoriesPage />} />
                   <Route path="/search" element={<SearchResults />} />
+                  <Route path="/location-test" element={<LocationTest />} />
+                  <Route path="/manage-addresses" element={<ManageAddresses />} />
                   <Route path="/restaurant/:id" element={<RestaurantDetail />} />
                   <Route path="/category/:category" element={<CategoryRestaurants />} />
                   <Route 
@@ -58,7 +59,6 @@ function App() {
                   />
                 </Routes>
               </main>
-              <Footer />
             </div>
           </Router>
         </CartProvider>

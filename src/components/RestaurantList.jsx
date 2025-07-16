@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Star, Clock, Truck, Heart } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { localRestaurants } from '../data/localRestaurants';
+import QuickBookingRestaurantCard from './QuickBookingRestaurantCard';
 
 const RestaurantList = ({ showAllRestaurants = false }) => {
-  const [favorites, setFavorites] = useState(new Set());
   const navigate = useNavigate();
 
-  // Show all restaurants or limit to 6 for home page
-  const restaurants = showAllRestaurants ? localRestaurants : localRestaurants.slice(0, 6);
+  // Show all restaurants or limit to 8 for home page
+  const restaurants = showAllRestaurants ? localRestaurants : localRestaurants.slice(0, 8);
 
   const toggleFavorite = (restaurantId) => {
     const newFavorites = new Set(favorites);

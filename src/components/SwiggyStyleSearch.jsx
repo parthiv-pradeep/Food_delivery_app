@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Clock, Percent } from 'lucide-react';
-import LocationSelector from './LocationSelector';
+import DeliveryLocationSelector from './DeliveryLocationSelector';
 
 const SwiggyStyleSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -64,7 +64,7 @@ const SwiggyStyleSearch = () => {
               <div className="flex flex-col gap-3 sm:gap-4">
                 {/* Location Selector */}
                 <div className="w-full sm:w-auto">
-                  <LocationSelector
+                  <DeliveryLocationSelector
                     currentLocation={currentLocation}
                     onLocationChange={handleLocationChange}
                     className="w-full"

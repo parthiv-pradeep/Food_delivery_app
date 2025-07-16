@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Menu, X, User } from 'lucide-react';
+import { ShoppingCart, Menu, X, User, MapPin, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useLocation as useCurrentLocation } from '../utils/locationService';
+import DeliveryLocationWidget from './DeliveryLocationWidget';
+import MobileNavigation from './MobileNavigation';
+import ModernCartButton from './ModernCartButton';
 import LoginModal from './LoginModal';
 import UserMenu from './UserMenu';
 import Cart from './Cart';
@@ -36,6 +40,11 @@ const SimpleHeader = () => {
               </span>
             </Link>
 
+            {/* Delivery Location Widget - Desktop */}
+            <div className="hidden md:block">
+              <DeliveryLocationWidget className="max-w-xs" />
+            </div>
+
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <Link 
@@ -56,22 +65,19 @@ const SimpleHeader = () => {
               >
                 Categories
               </Link>
+              <Link 
+                to="/location-test" 
+                className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-200 font-medium"
+              >
+                <MapPin className="h-4 w-4 mr-1" />
+                Location
+              </Link>
             </nav>
 
             {/* Right Side Actions */}
             <div className="flex items-center space-x-4">
-              {/* Cart Button */}
-              <button
-                onClick={handleCartClick}
-                className="relative p-2 text-gray-700 hover:text-orange-600 transition-colors duration-200"
-              >
-                <ShoppingCart className="h-6 w-6" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </button>
+              {/* Modern Cart Button */}
+              <ModernCartButton onClick={handleCartClick} />
 
               {/* User Menu */}
               {isAuthenticated ? (
@@ -99,6 +105,11 @@ const SimpleHeader = () => {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden border-t border-gray-200 py-4 space-y-4">
+              {/* Delivery Location - Mobile */}
+              <div className="px-4 py-2 border-b border-gray-100">
+                <DeliveryLocationWidget />
+              </div>
+              
               <Link 
                 to="/" 
                 className="block text-gray-700 hover:text-orange-600 transition-colors duration-200 font-medium"
@@ -120,6 +131,14 @@ const SimpleHeader = () => {
               >
                 Categories
               </Link>
+              <Link 
+                to="/manage-addresses" 
+                className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-200 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <MapPin className="h-4 w-4 mr-2" />
+                Manage Addresses
+              </Link>
             </div>
           )}
         </div>
@@ -135,6 +154,14 @@ const SimpleHeader = () => {
 
       {/* Cart */}
       <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+      {/* Mobile Navigation */}
+      <MobileNavigation 
+        isOpen={isMenuOpen} 
+        setIsOpen={setIsMenuOpen}
+        user={isAuthenticated ? { name: 'John Doe', phone: '+91 9876543210' } : null}
+        cartCount={getTotalItems()}
+      />
     </>
   );
 };
